@@ -132,7 +132,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_clear"
-        app:layout_constraintBottom_toTopOf="@id/changeThemeButton"
+        app:layout_constraintBottom_toTopOf="@id/resultButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/numberEightButton"
         app:layout_constraintTop_toBottomOf="@id/numberNineButton" />
@@ -141,10 +141,17 @@
         android:id="@+id/changeThemeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_change_theme"
         android:layout_marginBottom="48dp"
+        android:text="@string/text_change_theme"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/sumButton" />
+
+    <Button
+        android:id="@+id/resultButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_result"
+        app:layout_constraintBottom_toBottomOf="@id/changeThemeButton"
+        app:layout_constraintEnd_toEndOf="@+id/clearButton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

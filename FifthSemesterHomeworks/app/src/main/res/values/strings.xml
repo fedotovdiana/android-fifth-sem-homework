@@ -14,4 +14,5 @@
     <string name="text_sum">+</string>
     <string name="text_clear">C</string>
     <string name="text_change_theme">Change Theme</string>
+    <string name="text_result">=</string>
 </resources>

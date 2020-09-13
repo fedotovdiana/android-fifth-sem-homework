@@ -41,8 +41,9 @@ class MainActivity : AppCompatActivity() {
         numberEightButton.setOnClickListener { updateResultTextView(Calculator.EIGHT) }
         numberNineButton.setOnClickListener { updateResultTextView(Calculator.NINE) }
         numberZeroButton.setOnClickListener { updateResultTextView(Calculator.ZERO) }
-        clearButton.setOnClickListener { updateResultTextView(Calculator.SUM) }
-        sumButton.setOnClickListener { updateResultTextView(Calculator.CLEAR) }
+        clearButton.setOnClickListener { updateResultTextView(Calculator.CLEAR) }
+        sumButton.setOnClickListener { updateResultTextView(Calculator.SUM) }
+        resultButton.setOnClickListener { updateResultTextView(Calculator.RESULT) }
     }
 
     private fun updateResultTextView(operation: Calculator) {
@@ -87,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                 editedNumber = editedNumber * 10 + 0
                 "$editedNumber"
             }
-            Calculator.SUM -> {
+            Calculator.SUM, Calculator.RESULT -> {
                 resultNumber += editedNumber
                 editedNumber = 0
                 "$resultNumber"
