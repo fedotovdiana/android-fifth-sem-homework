@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_number_nine"
-        app:layout_constraintBottom_toTopOf="@id/equalsButton"
+        app:layout_constraintBottom_toTopOf="@id/clearButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/numberEightButton"
         app:layout_constraintTop_toBottomOf="@id/numberSixButton" />
@@ -128,10 +128,10 @@
         app:layout_constraintTop_toBottomOf="@id/numberEightButton" />
 
     <Button
-        android:id="@+id/equalsButton"
+        android:id="@+id/clearButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_equals"
+        android:text="@string/text_clear"
         app:layout_constraintBottom_toTopOf="@id/changeThemeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/numberEightButton"

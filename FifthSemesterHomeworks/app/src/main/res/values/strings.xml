@@ -12,6 +12,6 @@
     <string name="text_number_nine">9</string>
     <string name="text_number_zero">0</string>
     <string name="text_sum">+</string>
-    <string name="text_equals">=</string>
+    <string name="text_clear">C</string>
     <string name="text_change_theme">Change Theme</string>
 </resources>
