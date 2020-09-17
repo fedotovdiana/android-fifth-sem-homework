@@ -14,6 +14,9 @@ class MainActivity : AppCompatActivity() {
         private const val KEY_RESULT_NUMBER = "RESULT_NUMBER"
         private const val KEY_EDITED_NUMBER = "EDITED_NUMBER"
         private const val KEY_RESULT_TEXT = "RESULT_TEXT"
+        private const val KEY_THEME = "THEME"
+        private const val THEME_LIGHT = 0
+        private const val THEME_DARK = 1
     }
 
     private lateinit var prefs: SharedPreferences
@@ -24,8 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         prefs = getSharedPreferences(KEY_CALC_PREFS, Context.MODE_PRIVATE)
         setContentView(R.layout.activity_main)
-        setUpChangeTheme()
-        setUpCalculator()
+        setUpClickListeners()
     }
 
     override fun onResume() {
@@ -38,6 +40,13 @@ class MainActivity : AppCompatActivity() {
         savePrefs()
     }
 
+    private fun restorePrefs() {
+        resultNumber = prefs.getInt(KEY_RESULT_NUMBER, 0)
+        editedNumber = prefs.getInt(KEY_EDITED_NUMBER, 0)
+        resultTextView.text = prefs.getString(KEY_RESULT_TEXT, resources.getString(R.string.text_result))
+        changeTheme(prefs.getInt(KEY_THEME, THEME_LIGHT))
+    }
+
     private fun savePrefs() {
         prefs.edit().apply {
             putInt(KEY_RESULT_NUMBER, resultNumber)
@@ -46,26 +55,20 @@ class MainActivity : AppCompatActivity() {
         }.apply()
     }
 
-    private fun restorePrefs() {
-        resultNumber = prefs.getInt(KEY_RESULT_NUMBER, 0)
-        editedNumber = prefs.getInt(KEY_EDITED_NUMBER, 0)
-        resultTextView.text = prefs.getString(KEY_RESULT_TEXT, resources.getString(R.string.text_result))
-    }
-
-    private fun setUpChangeTheme() {
-        changeThemeButton.setOnClickListener {
-            when (AppCompatDelegate.getDefaultNightMode()) {
-                AppCompatDelegate.MODE_NIGHT_NO -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                }
-                else -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                }
+    private fun changeTheme(theme: Int) {
+        when (theme) {
+            THEME_LIGHT -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                prefs.edit().apply { putInt(KEY_THEME, THEME_LIGHT) }.apply()
+            }
+            THEME_DARK -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                prefs.edit().apply { putInt(KEY_THEME, THEME_DARK) }.apply()
             }
         }
     }
 
-    private fun setUpCalculator() {
+    private fun setUpClickListeners() {
         numberOneButton.setOnClickListener { updateResultTextView(Calculator.ONE) }
         numberTwoButton.setOnClickListener { updateResultTextView(Calculator.TWO) }
         numberThreeButton.setOnClickListener { updateResultTextView(Calculator.THREE) }
@@ -79,6 +82,12 @@ class MainActivity : AppCompatActivity() {
         clearButton.setOnClickListener { updateResultTextView(Calculator.CLEAR) }
         sumButton.setOnClickListener { updateResultTextView(Calculator.SUM) }
         resultButton.setOnClickListener { updateResultTextView(Calculator.RESULT) }
+        changeThemeButton.setOnClickListener {
+            when (AppCompatDelegate.getDefaultNightMode()) {
+                AppCompatDelegate.MODE_NIGHT_NO -> changeTheme(THEME_LIGHT)
+                else -> changeTheme(THEME_DARK)
+            }
+        }
     }
 
     private fun updateResultTextView(operation: Calculator) {
