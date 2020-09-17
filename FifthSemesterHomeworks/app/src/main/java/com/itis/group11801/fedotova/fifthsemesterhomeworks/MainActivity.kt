@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         private const val THEME_DARK = 1
     }
 
+    private var currentTheme: Int = THEME_LIGHT
     private lateinit var prefs: SharedPreferences
     private var resultNumber = 0
     private var editedNumber = 0
@@ -44,7 +45,15 @@ class MainActivity : AppCompatActivity() {
         resultNumber = prefs.getInt(KEY_RESULT_NUMBER, 0)
         editedNumber = prefs.getInt(KEY_EDITED_NUMBER, 0)
         resultTextView.text = prefs.getString(KEY_RESULT_TEXT, resources.getString(R.string.text_result))
-        changeTheme(prefs.getInt(KEY_THEME, THEME_LIGHT))
+        if (prefs.contains(KEY_THEME)) {
+            changeTheme(prefs.getInt(KEY_THEME, THEME_LIGHT))
+        } else {
+            when (AppCompatDelegate.getDefaultNightMode()) {
+                AppCompatDelegate.MODE_NIGHT_NO -> changeTheme(THEME_LIGHT)
+                else -> changeTheme(THEME_DARK)
+            }
+        }
+
     }
 
     private fun savePrefs() {
@@ -60,10 +69,12 @@ class MainActivity : AppCompatActivity() {
             THEME_LIGHT -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 prefs.edit().apply { putInt(KEY_THEME, THEME_LIGHT) }.apply()
+                currentTheme = THEME_LIGHT
             }
             THEME_DARK -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 prefs.edit().apply { putInt(KEY_THEME, THEME_DARK) }.apply()
+                currentTheme = THEME_DARK
             }
         }
     }
@@ -83,9 +94,9 @@ class MainActivity : AppCompatActivity() {
         sumButton.setOnClickListener { updateResultTextView(Calculator.SUM) }
         resultButton.setOnClickListener { updateResultTextView(Calculator.RESULT) }
         changeThemeButton.setOnClickListener {
-            when (AppCompatDelegate.getDefaultNightMode()) {
-                AppCompatDelegate.MODE_NIGHT_NO -> changeTheme(THEME_LIGHT)
-                else -> changeTheme(THEME_DARK)
+            when (currentTheme) {
+                THEME_LIGHT -> changeTheme(THEME_DARK)
+                else -> changeTheme(THEME_LIGHT)
             }
         }
     }
