@@ -1,1 +1,1 @@
-# android-fifth-sem-homework
+# MVI example
