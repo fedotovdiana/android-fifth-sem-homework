@@ -1,4 +1,4 @@
-package com.itis.group11801.fedotova.homework_course
+package com.itis.group11801.fedotova.homework
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
